@@ -6,78 +6,371 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>temp</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="scripts.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div id="info">
-        <input type="text" id="name">
-        <input type="text" id="type">
-        <input type="text" id="class">
+    <nav id="ui">
+        <input type="button" value="character" class="one">
+        <input type="button" value="prowesses">
+        <input type="button" value="skills">
+    </nav>
+    <div id="character-sheet">
+        <div id="info">
+            <span class="tag">Antecedent Existence</span>
+            <span class="tag">Preliminary Vocation</span>
+            <span class="tag">Name</span>
+            <input type="text" id="type">
+            <input type="text" id="class">
+            <input type="text" id="name">
+        </div>
+        <div class="sheet" id="character">
+            <div id="apprehension-block">
+                <span class="tag">Apprehension</span>
+                <input type="number" id="apprehension">
+            </div>
+            <div id="wounds">
+                <span class="tag">Fatal</span>
+                <div id="fatal">
+                    <textarea index="0" rows="3" cols="20"></textarea>
+                </div>
+                <span class="tag">Dangers</span>
+                <div id="dangers">
+                    <textarea index="0" rows="3" cols="20"></textarea>
+                    <textarea index="1" rows="3" cols="20"></textarea>
+                </div>
+                <span class="tag">Pains</span>
+                <div id="pains">
+                    <textarea index="0" rows="3" cols="20"></textarea>
+                    <textarea index="1" rows="3" cols="20"></textarea>
+                    <textarea index="2" rows="3" cols="20"></textarea>
+                </div>
+                <span class="tag">Distractions</span>
+                <div id="distractions">
+                    <textarea index="0" rows="3" cols="20"></textarea>
+                    <textarea index="1" rows="3" cols="20"></textarea>
+                    <textarea index="2" rows="3" cols="20"></textarea>
+                    <textarea index="3" rows="3" cols="20"></textarea>
+                </div>
+                <span class="tag">Annoyances</span>
+                <div id="annoyances">
+                    <textarea index="0" rows="3" cols="20"></textarea>
+                    <textarea index="1" rows="3" cols="20"></textarea>
+                    <textarea index="2" rows="3" cols="20"></textarea>
+                    <textarea index="3" rows="3" cols="20"></textarea>
+                    <textarea index="4" rows="3" cols="20"></textarea>
+                </div>
+            </div>
+            <div id="stats">
+                <div class="stat-block">
+                    <span class="tag">Strength</span>
+                    <input type="number" id="strength">
+                    <div class="modifier">+5</div>
+                </div>
+                <div class="stat-block">
+                    <span class="tag">Dexterity</span>
+                    <input type="number" id="dexterity">
+                    <div class="modifier"></div>
+                </div>
+                <div class="stat-block">
+                    <span class="tag">Constitution</span>
+                    <input type="number" id="constitution">
+                    <div class="modifier"></div>
+                </div>
+                <div class="stat-block">
+                    <span class="tag">Intelligence</span>
+                    <input type="number" id="intelligence">
+                    <div class="modifier"></div>
+                </div>
+                <div class="stat-block">
+                    <span class="tag">Wisdom</span>
+                    <input type="number" id="wisdom">
+                    <div class="modifier"></div>
+                </div>
+                <div class="stat-block">
+                    <span class="tag">Charisma</span>
+                    <input type="number" id="charisma">
+                    <div class="modifier"></div>
+                </div>
+            </div>
+            <div id="additional">
+                <span class="tag">Light Weight</span>
+                <span class="tag">Medium Weight</span>
+                <span class="tag">Heavy Weight</span>
+                <div class="carry-weight" id="light">2</div>
+                <div class="carry-weight" id="medium">2</div>
+                <div class="carry-weight" id="heavy">2</div>
+                <textarea id="equipment"></textarea>
+            </div>
+        </div>
+        <div class="sheet" id="prowesses">
+            <div>
+                <span class="tag">Accumulated Peculiarity Points</span>
+                <input type="number" id="peculiarityPoints">
+            </div>
+            <div>
+                <span class="tag">Accumulated Statistical Training</span>
+                <div id="statisticalTraining">
+                    <span class="tagS">Strength</span>
+                    <input type="number" class="strength">
+                    <span class="tagF">/5</span>
+                    <span class="tagS">Dexterity</span>
+                    <input type="number" class="dexterity">
+                    <span class="tagF">/5</span>
+                    <span class="tagS">Constitution</span>
+                    <input type="number" class="constitution">
+                    <span class="tagF">/5</span>
+                    <span class="tagS">Intelligence</span>
+                    <input type="number" class="intelligence">
+                    <span class="tagF">/5</span>
+                    <span class="tagS">Wisdom</span>
+                    <input type="number" class="wisdom">
+                    <span class="tagF">/5</span>
+                    <span class="tagS">Charisma</span>
+                    <input type="number" class="charisma">
+                    <span class="tagF">/5</span>
+                </div>
+            </div>
+            <div>
+                <span class="tag">Accumulated Peculiarity Training</span>
+                <div>
+                    <input type="number" id="peculiarityTraining">
+                    <span class="tagF">/5</span>
+                </div>
+            </div>
+            <div class="peculiarities">
+                <span class="tag">Peculiarities</span>
+                <textarea id="peculiarities" rows="30" cols="50"></textarea>
+            </div>
+            <div>
+                <span class="tag">Wound Recuperation</span>
+                <span class="tagS">Recovering Wound</span>
+                <input type="text" id="recoveringWound">
+                <span class="tagS">Weeks Required</span>
+                <input type="number" id="weeksRequired">
+            </div>
+        </div>
+        <div class="sheet" id="skills">
+            <span class="empty"></span>
+            <span class="tagF">Acrobatic (Dex/Con)</span>
+            <span class="tagF">Animal Handling(Wis)</span>
+            <span class="tagF">Antiquary (Wis/Int)</span>
+            <span class="tagF">Athletics (Str/Con)</span>
+            <span class="tagF">Coercion (Cha)</span>
+            <span class="tagF">Cognizance (Wis)</span>
+            <span class="tagF">Deceit (Cha)</span>
+            <span class="tagF">Driving (Dex/Int)</span>
+            <span class="tagF">Examination (Int)</span>
+            <span class="tagF">Machinery (Wis/Str)</span>
+            <span class="tagF">Medicine (Wis)</span>
+            <span class="tagF">Munitions (Int/Wis)</span>
+            <span class="tagF">Nature (Int)</span>
+            <span class="tagF">Occult (Wis)</span>
+            <span class="tagF">Persuasion (Cha)</span>
+            <span class="tagF">Sleight of Hand (Dex)</span>
+            <span class="tagF">Software (Int)</span>
+            <span class="tagF">Stealth (Dex)</span>
+            <span class="tagF">Theology (Wis)</span>
+            <span class="tagF">Tracking (Int/Wis)</span>
+            <span class="tagF">Verdure (Str)</span>
+            <span class="empty"></span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="modifier">+2</span>
+            <span class="tag">Proficiency</span>
+            <label class="check-container">
+                <input type="checkbox" index="0 0">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 1">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 2">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 3">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 4">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 5">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 6">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 7">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 8">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 9">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 10">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 11">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 12">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 13">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 14">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 15">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 16">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 17">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 18">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 19">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="0 20">
+                <span class="checkmark"></span>
+            </label>
+            <span class="tag">Expertise</span>
+            <label class="check-container">
+                <input type="checkbox" index="1 0">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 1">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 2">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 3">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 4">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 5">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 6">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 7">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 8">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 9">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 10">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 11">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 12">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 13">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 14">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 15">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 16">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 17">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 18">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 19">
+                <span class="checkmark"></span>
+            </label>
+            <label class="check-container">
+                <input type="checkbox" index="1 20">
+                <span class="checkmark"></span>
+            </label>
+        </div>
     </div>
-    <div id="character">
-        <input type="number" id="apprehension">
-        <div id="wounds">
-            <div id="fatal">
-                <div id="1"></div>
-            </div>
-            <div id="dangers">
-                <div id="1"></div>
-                <div id="2"></div>
-            </div>
-            <div id="pains">
-                <div id="1"></div>
-                <div id="2"></div>
-                <div id="3"></div>
-            </div>
-            <div id="distractions">
-                <div id="1"></div>
-                <div id="2"></div>
-                <div id="3"></div>
-                <div id="4"></div>
-            </div>
-            <div id="annoyances">
-                <div id="1"></div>
-                <div id="2"></div>
-                <div id="3"></div>
-                <div id="4"></div>
-                <div id="5"></div>
-            </div>
-        </div>
-        <div id="stats">
-            <div class="statBlock">
-                <input type="number" id="strength">
-                <div class="modifier"></div>
-            </div>
-            <div class="statBlock">
-                <input type="number" id="dexterity">
-                <div class="modifier"></div>
-            </div>
-            <div class="statBlock">
-                <input type="number" id="constituion">
-                <div class="modifier"></div>
-            </div>
-            <div class="statBlock">
-                <input type="number" id="intelligence">
-                <div class="modifier"></div>
-            </div>
-            <div class="statBlock">
-                <input type="number" id="wisdom">
-                <div class="modifier"></div>
-            </div>
-            <div class="statBlock">
-                <input type="number" id="charisma">
-                <div class="modifier"></div>
-            </div>
-        </div>
-        <div id="additional">
-            <div id="light"></div>
-            <div id="medium"></div>
-            <div id="heavy"></div>
-            <textarea id="equipment"></textarea>
-        </div>
-    </div>
-    <div id="prowesess"></div>
-    <div id="skills"></div>
 </body>
 
 </html>
