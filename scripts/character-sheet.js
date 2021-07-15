@@ -1,4 +1,8 @@
 let character = {
+    info: {
+        uuid: '',
+        type: ''
+    },
     name: '',
     type: '',
     class: '',
@@ -37,6 +41,10 @@ let character = {
 };
 
 let testCharacter = {
+    info: {
+        uuid: 'ligma',
+        type: 'clc'
+    },
     name: 'Sbeve Jobs',
     type: 'Venerable Collegian',
     class: 'Investigator',
@@ -74,6 +82,8 @@ let testCharacter = {
     [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]]
 };
 
+// HTML selectors, for setting HTML
+
 const info = Array.from(document.querySelectorAll('#info>input'));
 
 const apprehension = document.querySelector('#apprehension');
@@ -110,6 +120,7 @@ function loadCharacter(character) {
         element.checked = character.skills[Number(index[0])][Number(index[1])];
     })
     calcStats();
+    updateTitle();
 }
 
 function calcStats() {
@@ -214,6 +225,51 @@ function bonusMap(stats, index) {
             return str;
     }
 }
+
+function updateTitle() {
+    if (character.name.replace(/\s/g, '').length)
+        document.querySelector('title').innerText = character.name;
+    else
+        document.querySelector('title').innerText = 'Cleared Waters';
+}
+
+// Input receiving
+
+const infoInput = document.querySelector('#info');
+const characterInput = document.querySelector('#character');
+const prowessesInput = document.querySelector('#prowesses');
+const skillsInput = document.querySelector('#skills')
+
+infoInput.addEventListener('input', (elem) => {
+    character[elem.target.id] = elem.target.value;
+    updateTitle();
+});
+
+characterInput.addEventListener('input', (elem) => {
+    if (elem.target.parentElement.parentElement.id == 'wounds') {
+        character.wounds[elem.target.parentElement.id][elem.target.getAttribute('index')] = elem.target.value;
+    } else if (elem.target.parentElement.parentElement.id == 'stats') {
+        character.stats[elem.target.id] = elem.target.value;
+        calcStats();
+    }
+    else {
+        character[elem.target.id] = elem.target.value;
+    }
+
+});
+
+prowessesInput.addEventListener('input', (elem) => {
+    if (elem.target.parentElement.id == 'statisticalTraining') {
+        character.statisticalTraining[elem.target.className] = elem.target.value;
+    } else {
+        character[elem.target.id] = elem.target.value;
+    }
+});
+
+skillsInput.addEventListener('input', (elem) => {
+    let index = elem.target.getAttribute('index').split(' ');
+    character.skills[Number(index[0])][Number(index[1])] = elem.target.checked;
+})
 
 const nav = document.getElementById('ui');
 const characterPages = {

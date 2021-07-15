@@ -242,3 +242,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+input[type=text]{
+    text-indent: 10px;
+}
