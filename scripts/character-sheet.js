@@ -82,6 +82,8 @@ let testCharacter = {
     [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]]
 };
 
+document.documentElement.setAttribute('theme', 'theme-dark');
+
 // HTML selectors, for setting HTML
 
 const info = Array.from(document.querySelectorAll('#info>input'));
@@ -169,7 +171,7 @@ function modifierMap(stat) {
         case 10:
             return 3;
         default:
-            return "error";
+            return 0;
     }
 }
 
@@ -240,6 +242,22 @@ const characterInput = document.querySelector('#character');
 const prowessesInput = document.querySelector('#prowesses');
 const skillsInput = document.querySelector('#skills')
 
+// Blocks non number input in number inputs, stack overflow pog
+// https://stackoverflow.com/questions/19966417/prevent-typing-non-numeric-in-input-type-number
+const numInput = Array.from(document.querySelectorAll("input[type=number]"));
+numInput.forEach((elem) => {
+    elem.addEventListener("keydown", function (e) {
+        var allowedChars = "0123456789";
+        function contains(stringValue, charValue) {
+            return stringValue.indexOf(charValue) > -1;
+        }
+        var invalidKey =
+            (e.key.length === 1 && !contains(allowedChars, e.key)) ||
+            (e.key === "." && contains(e.target.value, "."));
+        invalidKey && e.preventDefault();
+    });
+});
+
 infoInput.addEventListener('input', (elem) => {
     character[elem.target.id] = elem.target.value;
     updateTitle();
@@ -249,8 +267,13 @@ characterInput.addEventListener('input', (elem) => {
     if (elem.target.parentElement.parentElement.id == 'wounds') {
         character.wounds[elem.target.parentElement.id][elem.target.getAttribute('index')] = elem.target.value;
     } else if (elem.target.parentElement.parentElement.id == 'stats') {
-        character.stats[elem.target.id] = elem.target.value;
-        calcStats();
+        if (elem.target.value < 1 || elem.target.value > 10) {
+
+        } else {
+            character.stats[elem.target.id] = elem.target.value;
+            calcStats();
+            console.log(character.stats.strength);
+        }
     }
     else {
         character[elem.target.id] = elem.target.value;
@@ -271,6 +294,8 @@ skillsInput.addEventListener('input', (elem) => {
     character.skills[Number(index[0])][Number(index[1])] = elem.target.checked;
 })
 
+// temp ui
+
 const nav = document.getElementById('ui');
 const characterPages = {
     character: document.getElementById('character'),
@@ -286,10 +311,64 @@ const characterPages = {
 characterPages.setAll('none');
 characterPages.character.style.display = 'grid';
 
-nav.addEventListener("click", (elem) => {
-    let page = elem.target.value;
-    if (page !== undefined) {
-        characterPages.setAll('none');
-        characterPages[page].style.display = 'grid';
+nav.addEventListener('click', (elem) => {
+    let selection;
+    if (elem.target.tagName == 'svg') {
+        selection = elem.target.parentElement.id;
+    } else if (elem.target.tagName == 'path') {
+        selection = elem.target.parentElement.parentElement.id;
+    } else {
+        selection = elem.target.id;
     }
-});
+    if (selection != undefined) {
+        if (selection == 'theme') {
+            toggleTheme();
+        } else if (selection == 'characterS') {
+            characterPages.setAll('none');
+            characterPages.character.style.display = 'grid';
+        } else if (selection == 'prowessesS') {
+            characterPages.setAll('none');
+            characterPages.prowesses.style.display = 'grid';
+        } else if (selection == 'skillsS') {
+            characterPages.setAll('none');
+            characterPages.skills.style.display = 'grid';
+        }
+    }
+})
+
+// nav.addEventListener('click', (elem) => {
+//     let selection = elem.target.value;
+//     if (selection == 'switch theme') {
+//         toggleTheme();
+//     } else if(selection != undefined){
+//         characterPages.setAll('none');
+//         characterPages[selection].style.display = 'grid';
+//     }
+// });
+
+
+// function to set a given theme/color-scheme
+function setTheme(themeName) {
+    localStorage.setItem('theme', themeName);
+    document.documentElement.setAttribute('theme', themeName);
+}// function to toggle between light and dark theme
+function toggleTheme() {
+    if (localStorage.getItem('theme') === 'theme-dark') {
+        setTheme('theme-light');
+        document.querySelector('#sun').style.display = 'none';
+        document.querySelector('#moon').style.display = 'block';
+    } else {
+        setTheme('theme-dark');
+        document.querySelector('#sun').style.display = 'block';
+        document.querySelector('#moon').style.display = 'none';
+    }
+}// Immediately invoked function to set the theme on initial load
+(function () {
+    if (localStorage.getItem('theme') === 'theme-dark') {
+        setTheme('theme-dark');
+        document.querySelector('#moon').style.display = 'none';
+    } else {
+        setTheme('theme-light');
+        document.querySelector('#sun').style.display = 'none';
+    }
+})();

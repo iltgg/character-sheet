@@ -7,19 +7,78 @@
 :root {
     --font-smooth: 'Open Sans', sans-serif;
     --font-cursive: 'Alex Brush', cursive;
-    ;
+}
+
+*[theme=theme-light]{
+    --background: #FFFFFF;
+    --text: #000000;
+    --input: #F3F3F3;
+    --ui-bar: #d4d7f3;
+    --ui-option: #babfeb;
+    --ui-hover: #8085b1;
+}
+
+*[theme=theme-dark]{
+    --background: #282C34;
+    --text: #ffffff;
+    --input: #21252B;
+    --ui-bar: #3c3e4d;
+    --ui-option: #8289C8;
+    --ui-hover: #5961A9;
+}
+
+html{
+    background-color: var(--background);
+    color: var(--text);
+    transition: background-color 0.1s;
+    height: 100%;
 }
 
 body {
     display: grid;
     grid-template-columns: 150px auto;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+nav#ui {
+    background-color: var(--ui-bar);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+nav#ui div:last-child{
+    border-bottom: 4px solid var(--ui-hover);
+}
+
+nav div.ui-element {
+    background-color: var(--ui-option);
+    text-align: center;
+    font-family: var(--font-smooth);
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    order: 0;
+    height: 100px;
+    border-top: 4px solid var(--ui-hover);
+    padding-top: 5px;
+}
+
+nav div.ui-element:hover {
+    background-color: var(--ui-hover);
+}
+
+svg {
+    scale: 75%;
 }
 
 #character-sheet {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 98vh;
 }
 
 textarea {
@@ -29,6 +88,10 @@ textarea {
 textarea, input {
     font-family: var(--font-smooth);
     font-size: 12px;
+    background-color: var(--input);
+    border: none;
+    color: var(--text);
+    transition: background-color 0.1s;
 }
 
 #info {
