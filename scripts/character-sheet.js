@@ -40,48 +40,6 @@ let characterSave = {
     [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]]
 };
 
-let testCharacter = {
-    info: {
-        uuid: 'ligma',
-        type: 'clc'
-    },
-    name: 'Sbeve Jobs',
-    type: 'Venerable Collegian',
-    class: 'Investigator',
-    apprehension: 12,
-    wounds: {
-        fatal: ['cancer'],
-        dangers: ['iphone', ''],
-        pains: ['5G poisoning', '', ''],
-        distractions: ['', '', 'bruise from fist fight with bill gates', ''],
-        annoyances: ['', '', 'paper cut', 'ate a pear', '']
-    },
-    stats: {
-        strength: 1,
-        dexterity: 3,
-        constitution: 4,
-        intelligence: 9,
-        wisdom: 5,
-        charisma: 6,
-    },
-    equipment: 'iphone (0)\nmac(000)\ngun',
-    peculiarityPoints: 11,
-    statisticalTraining: {
-        strength: 2,
-        dexterity: 5,
-        constitution: 2,
-        intelligence: 3,
-        wisdom: 1,
-        charisma: 4,
-    },
-    peculiarityTraining: 3,
-    peculiarities: 'literally steve jobs',
-    recoveringWound: 'dead',
-    weeksRequired: 2,
-    skills: [[true, false, false, false, false, true, false, false, false, true, false, false, false, false, false, false, false, true, false, false],
-    [true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false]]
-};
-
 document.documentElement.setAttribute('theme', 'theme-dark');
 document.body.onload = getCharacter;
 
