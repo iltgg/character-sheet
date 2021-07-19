@@ -42,17 +42,22 @@ let character = {
 const selection = document.getElementById('selection');
 
 document.body.onload = () => {
+    loadCharacters();
+}
+
+function loadCharacters() {
     let characterList = JSON.parse(localStorage.getItem('characterList'));
 
     if (characterList) {
-        loadCharacters(characterList);
+        selection.innerHTML = '';
+        for (const character of characterList) {
+            displayCharacter(character);
+        }
     }
-}
-
-function loadCharacters(characterList) {
-    for (const character of characterList) {
-        displayCharacter(character);
-    }
+    characterList.forEach(element => {
+        element.info.new = false;
+    });
+    localStorage.setItem('characterList', JSON.stringify(characterList));
 }
 
 
@@ -89,6 +94,10 @@ function displayCharacter(character) {
     divCharacter.appendChild(divButtons);
     divCharacter.appendChild(link);
 
+    if (character.info.new === true) {
+        divCharacter.className += ' animate-new';
+    }
+
     selection.appendChild(divCharacter);
 }
 
@@ -107,6 +116,7 @@ function nukeAll() {
 function newCharacter() {
     currentList = JSON.parse(localStorage.getItem('characterList'));
     character.info.uuid = createUUID();
+    character.info.new = true;
 
     if (!currentList) {
         currentList = [];
@@ -114,7 +124,7 @@ function newCharacter() {
     currentList.push(character);
     localStorage.setItem('characterList', JSON.stringify(currentList));
     character.info.uuid = '';
-    window.location.reload();
+    loadCharacters();
 }
 
 function createUUID() {
@@ -133,32 +143,33 @@ function uploadCharacter(files) {
         fileList = files;
 
     if (fileList) {
+        let fileCounter = fileList.length;
         for (const file of fileList) {
             const blob = new Blob([file]);
             let x = blob.text();
             blob.text().then((value) => {
                 let currentList = JSON.parse(localStorage.getItem('characterList'));
+                let currentObj = JSON.parse(value);
+                currentObj.info.new = true;
 
                 if (!currentList) { //If local storage object does not exist initialize it
                     currentList = [];
-                    currentList.push(JSON.parse(value));
+                    currentList.push(currentObj);
                     localStorage.setItem('characterList', JSON.stringify(currentList));
                 } else { //Check for matching uuid and update that character instead
-                    let currentObj = JSON.parse(value);
                     let currentUuid = currentObj.info.uuid;
-                    console.log(currentUuid);
                     currentList.push(currentObj);
-                    for (let i = 0; i < currentList.length-1; i++) {
-                        console.log(currentList[i]);
+                    for (let i = 0; i < currentList.length - 1; i++) {
                         if (currentList[i].info.uuid == currentUuid) {
                             currentList[i] = currentObj;
                             currentList.pop();
-                            console.log('here')
                         }
                     }
                     localStorage.setItem('characterList', JSON.stringify(currentList));
                 }
-                window.location.reload();
+                fileCounter--;
+                if (fileCounter == 0)
+                    loadCharacters();
             });
         }
     }
@@ -177,7 +188,7 @@ selection.addEventListener('click', (elem) => {
                 }
             }
             localStorage.setItem('characterList', JSON.stringify(characterList));
-            window.location.reload();
+            loadCharacters();
         }
     } else if (selection == 'download') {
         let characterList = JSON.parse(localStorage.getItem('characterList'));

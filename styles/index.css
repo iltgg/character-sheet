@@ -180,3 +180,16 @@ input[type=file] {
 .github-link a:visited {
     color: inherit;
 }
+
+@keyframes new {
+    from {
+        background-color: greenyellow;
+    }
+    to {
+        background-color: var(--ui-option);
+    }
+}
+
+.animate-new{
+    animation: new 2s ease-out;
+}
