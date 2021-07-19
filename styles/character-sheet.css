@@ -65,6 +65,7 @@ nav div.ui-element {
     height: 100px;
     border-top: 4px solid var(--ui-hover);
     padding-top: 5px;
+    cursor: pointer;
 }
 
 nav div.ui-element:hover {

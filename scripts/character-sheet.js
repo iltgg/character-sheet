@@ -1,4 +1,4 @@
-let character = {
+let characterSave = {
     info: {
         uuid: '',
         type: ''
@@ -83,6 +83,7 @@ let testCharacter = {
 };
 
 document.documentElement.setAttribute('theme', 'theme-dark');
+document.body.onload = getCharacter;
 
 // HTML selectors, for setting HTML
 
@@ -102,6 +103,7 @@ const skillsMod = Array.from(document.querySelectorAll('#skills span.modifier'))
 const skillsPE = Array.from(document.querySelectorAll('#skills label input'));
 
 function loadCharacter(character) {
+    characterSave = JSON.parse(JSON.stringify(character));
     info[0].value = character.type;
     info[1].value = character.class;
     info[2].value = character.name;
@@ -229,11 +231,47 @@ function bonusMap(stats, index) {
 }
 
 function updateTitle() {
-    if (character.name.replace(/\s/g, '').length)
-        document.querySelector('title').innerText = character.name;
+    if (characterSave.name.replace(/\s/g, '').length)
+        document.querySelector('title').innerText = characterSave.name;
     else
         document.querySelector('title').innerText = 'Cleared Waters';
 }
+
+//character logic
+
+function getCharacter() {
+    let characterUUID = window.location.search.split('=')[1];
+    if (!characterUUID)
+        window.location.replace('index.html');
+
+    const characterList = JSON.parse(localStorage.getItem('characterList'));
+    let index;
+    for (const i in characterList) {
+        if (characterList[i].info.uuid == characterUUID) {
+            index = i;
+            break;
+        }
+    }
+    loadCharacter(characterList[index]);
+}
+
+function saveCharacter(character) {
+    let characterUUID = window.location.search.split('=')[1];
+    if (!characterUUID)
+        window.location.replace('index.html');
+
+    const characterList = JSON.parse(localStorage.getItem('characterList'));
+    let index;
+    for (const i in characterList) {
+        if (characterList[i].info.uuid == characterUUID) {
+            index = i;
+            break;
+        }
+    }
+    characterList[index] = characterSave;
+    localStorage.setItem('characterList', JSON.stringify(characterList));
+}
+
 
 // Input receiving
 
@@ -259,40 +297,43 @@ numInput.forEach((elem) => {
 });
 
 infoInput.addEventListener('input', (elem) => {
-    character[elem.target.id] = elem.target.value;
+    characterSave[elem.target.id] = elem.target.value;
     updateTitle();
+    saveCharacter(characterSave);
 });
 
 characterInput.addEventListener('input', (elem) => {
     if (elem.target.parentElement.parentElement.id == 'wounds') {
-        character.wounds[elem.target.parentElement.id][elem.target.getAttribute('index')] = elem.target.value;
+        characterSave.wounds[elem.target.parentElement.id][elem.target.getAttribute('index')] = elem.target.value;
     } else if (elem.target.parentElement.parentElement.id == 'stats') {
         if (elem.target.value < 1 || elem.target.value > 10) {
 
         } else {
-            character.stats[elem.target.id] = elem.target.value;
+            characterSave.stats[elem.target.id] = elem.target.value;
             calcStats();
-            console.log(character.stats.strength);
         }
     }
     else {
-        character[elem.target.id] = elem.target.value;
+        characterSave[elem.target.id] = elem.target.value;
     }
-
+    saveCharacter(characterSave);
 });
 
 prowessesInput.addEventListener('input', (elem) => {
     if (elem.target.parentElement.id == 'statisticalTraining') {
-        character.statisticalTraining[elem.target.className] = elem.target.value;
+        characterSave.statisticalTraining[elem.target.className] = elem.target.value;
     } else {
-        character[elem.target.id] = elem.target.value;
+        characterSave[elem.target.id] = elem.target.value;
     }
+    saveCharacter(characterSave);
 });
 
 skillsInput.addEventListener('input', (elem) => {
     let index = elem.target.getAttribute('index').split(' ');
-    character.skills[Number(index[0])][Number(index[1])] = elem.target.checked;
+    characterSave.skills[Number(index[0])][Number(index[1])] = elem.target.checked;
+    saveCharacter(characterSave);
 })
+
 
 // temp ui
 
@@ -332,20 +373,29 @@ nav.addEventListener('click', (elem) => {
         } else if (selection == 'skillsS') {
             characterPages.setAll('none');
             characterPages.skills.style.display = 'grid';
+        } else if (selection == 'download') {
+            downloadCharacter(`${characterSave.name}.character`, JSON.stringify(characterSave));
+        } else if (selection == 'home') {
+            window.location.href = "index.html"
         }
     }
 })
 
-// nav.addEventListener('click', (elem) => {
-//     let selection = elem.target.value;
-//     if (selection == 'switch theme') {
-//         toggleTheme();
-//     } else if(selection != undefined){
-//         characterPages.setAll('none');
-//         characterPages[selection].style.display = 'grid';
-//     }
-// });
 
+function downloadCharacter(filename, data) {
+    var blob = new Blob([data], { type: 'text/csv' });
+    if (window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveBlob(blob, filename);
+    }
+    else {
+        var elem = window.document.createElement('a');
+        elem.href = window.URL.createObjectURL(blob);
+        elem.download = filename;
+        document.body.appendChild(elem);
+        elem.click();
+        document.body.removeChild(elem);
+    }
+}
 
 // function to set a given theme/color-scheme
 function setTheme(themeName) {
@@ -372,3 +422,7 @@ function toggleTheme() {
         document.querySelector('#sun').style.display = 'none';
     }
 })();
+
+function download(character) {
+
+}

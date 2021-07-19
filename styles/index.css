@@ -61,24 +61,38 @@ body {
     padding-bottom: 20px;
 }
 
-.image {
-    width: 50%;
-    height: 50%;
-    display: flex;
-    justify-content: center;
+.character-info {
+    width: inherit;
 }
 
-img {
-    max-width: 100%;
-    max-height: 100%;
+.character-info div {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+input {
+    background-color: var(--ui-option);
+    border: 2px solid var(--ui-hover);
+    color: var(--text);
+    cursor: pointer;
+}
+
+input:hover {
+    background-color: var(--ui-hover);
 }
 
 .character-link {
     width: 200px;
-    height: 200px;
+    height: 145px;
     position: absolute;
     margin-top: -20px;
     z-index: 1;
+    border-bottom: 2px solid var(--text);
+}
+
+.character-link:hover {
+    border: 3px solid var(--text);
 }
 
 nav#ui {
@@ -101,11 +115,11 @@ nav div.ui-element {
     display: flex;
     flex-direction: column;
     align-items: center;
-    order: 0;
     height: 100px;
     border-top: 4px solid var(--ui-hover);
     padding-top: 5px;
     transition: background-color 0.1s;
+    cursor: pointer;
 }
 
 nav div.ui-element:hover {
@@ -114,4 +128,55 @@ nav div.ui-element:hover {
 
 svg {
     scale: 75%;
+}
+
+input[type=file] {
+    display: none;
+}
+
+.info-page {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--ui-option);
+    z-index: 3;
+    width: 700px;
+    height: 450px;
+    padding: 50px;
+    border: 3px solid var(--text);
+    font-family: var(--font-smooth);
+    font-size: 1.2em;
+}
+
+.info-page p {
+    border-bottom: 3px dashed var(--text);
+}
+
+.info-block {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    background-color: #3c3e4dcb;
+}
+
+.github-link {
+    width: 10%;
+    text-align: center;
+    color: var(--text);
+}
+
+.github-link:hover, .github-link:focus {
+    color: var(--ui-hover);
+}
+
+.github-link a {
+    text-decoration: none;
+}
+
+.github-link a:visited {
+    color: inherit;
 }
