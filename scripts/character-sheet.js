@@ -175,10 +175,11 @@ function calcStats() {
 
 function modifierMap(stat) {
   if (stat > 17) {
+    stat-18 // 18-18 = 0, 19-18 = 1, 20-18 = 2, 21| 22 23 | 24 25 | 26 27| 28 29 | 30 31 |32 33
     if (stat % 2 === 1) {
-      return stat - 11;
+      return stat - 11 - (stat-19)/2;
     }
-    return stat - 10;
+    return stat - 10 - (stat-18)/2;
   }
   switch (stat) {
     case -7:
