@@ -174,26 +174,26 @@ function calcStats() {
 }
 
 function modifierMap(stat) {
-  if (stat>17){
-    if (stat % 2 === 1){
-        return stat-11;
+  if (stat > 17) {
+    if (stat % 2 === 1) {
+      return stat - 11;
     }
-    return stat-10;
+    return stat - 10;
   }
   switch (stat) {
     case -7:
     case -6:
-        return -8;
+      return -8;
     case -5:
-        return -7;
+      return -7;
     case -4:
     case -3:
-        return -6;
+      return -6;
     case -2:
     case -1:
-        return -5;
+      return -5;
     case 0:
-        return -4;
+      return -4;
     case 1:
       return -3;
     case 2:
@@ -213,15 +213,15 @@ function modifierMap(stat) {
       return 3;
     case 11:
     case 12:
-        return 4;
+      return 4;
     case 13:
     case 14:
-        return 5;
+      return 5;
     case 15:
-        return 6;
+      return 6;
     case 16:
     case 17:
-        return 7;
+      return 7;
     default:
       return 0;
   }
@@ -399,6 +399,8 @@ const characterPages = {
 characterPages.setAll("none");
 characterPages.character.style.display = "grid";
 
+let dvd = false;
+
 nav.addEventListener("click", (elem) => {
   let selection;
   if (elem.target.tagName == "svg") {
@@ -427,6 +429,14 @@ nav.addEventListener("click", (elem) => {
       );
     } else if (selection == "home") {
       window.location.href = "index.html";
+    } else if (selection == "dvd-button") {
+      if (dvd) {
+        dvd = !dvd;
+        stop();
+      } else {
+        dvd = !dvd;
+        init();
+      }
     }
   }
 });

@@ -51,7 +51,7 @@ let directions = ["ne", "nw", "se", "sw"];
 // init();
 onStart();
 
-function onStart(){
+function onStart() {
   box.style.visibility = "hidden";
 }
 
