@@ -48,7 +48,12 @@ var box = document.getElementById("dvd"),
 
 let directions = ["ne", "nw", "se", "sw"];
 
-init();
+// init();
+onStart();
+
+function onStart(){
+  box.style.visibility = "hidden";
+}
 
 // reset constraints on resize
 window.addEventListener(
@@ -72,10 +77,16 @@ box.addEventListener("click", () => {
 
 function init() {
   request = requestAnimationFrame(init);
+  box.style.visibility = "visible";
   move();
   // setInterval(function() {
   //   move();
   // }, 16.66);
+}
+
+function stop() {
+  cancelAnimationFrame(request);
+  box.style.visibility = "hidden";
 }
 
 // reset constraints

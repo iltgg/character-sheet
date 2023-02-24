@@ -174,6 +174,12 @@ function calcStats() {
 }
 
 function modifierMap(stat) {
+  if (stat>17){
+    if (stat % 2 === 1){
+        return stat-11;
+    }
+    return stat-10;
+  }
   switch (stat) {
     case -7:
     case -6:
@@ -348,7 +354,7 @@ characterInput.addEventListener("input", (elem) => {
       elem.target.getAttribute("index")
     ] = elem.target.value;
   } else if (elem.target.parentElement.parentElement.id == "stats") {
-    if (elem.target.value < -7 || elem.target.value > 17) {
+    if (elem.target.value < -7) {
     } else {
       characterSave.stats[elem.target.id] = elem.target.value;
       calcStats();
